@@ -1,15 +1,12 @@
 import os
 from typing import Generator
 import psycopg
-from dotenv import load_dotenv
-
-# Solo cargar .env si existe (modo local)
-if os.path.exists(".env"):
-    load_dotenv()
 
 passwordDB = os.getenv("SUPABASEPASSWORD")
+print("SUPABASEPASSWORD:", passwordDB)  # <--- log temporal para ver si Vercel la ve
 
 url = f"postgresql://postgres.llmoauphlyyhpjdlpuwa:{passwordDB}@aws-1-sa-east-1.pooler.supabase.com:6543/postgres"
+print("DB URL:", url)  # <--- log temporal
 
 def getCursor() -> Generator[psycopg.Cursor, None, None]:
     conn = psycopg.connect(url, sslmode="require")
@@ -20,3 +17,4 @@ def getCursor() -> Generator[psycopg.Cursor, None, None]:
     finally:
         cursor.close()
         conn.close()
+
