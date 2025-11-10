@@ -13,3 +13,5 @@ class HabitatManager:
     def ActualizarHabitat(self, habitat: Habitat, cursor:psycopg.Cursor):
         cursor.execute("UPDATE habitats SET nombre = %s, id_animal = %s, id_cuidador =%s WHERE id_habitat = %s", (habitat.nombre, habitat.id_animal, habitat.id_cuidador, habitat.id_habitat))
         return "Habitat Actualizado."
+
+    

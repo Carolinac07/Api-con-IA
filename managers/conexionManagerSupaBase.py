@@ -3,16 +3,17 @@ from typing import Generator
 import psycopg
 from dotenv import load_dotenv
 
-load_dotenv ()
-passwordDB=os.getenv ("SUPABASEPASSWORD")
+# Solo cargar .env si existe (modo local)
+if os.path.exists(".env"):
+    load_dotenv()
 
-url=f"postgresql://postgres.llmoauphlyyhpjdlpuwa:{passwordDB}@aws-1-sa-east-1.pooler.supabase.com:6543/postgres"
+passwordDB = os.getenv("SUPABASEPASSWORD")
 
+url = f"postgresql://postgres.llmoauphlyyhpjdlpuwa:{passwordDB}@aws-1-sa-east-1.pooler.supabase.com:6543/postgres"
 
-def getCursor()-> Generator [psycopg.Cursor, None, None]:
-    conn=psycopg.connect(url, sslmode="require")
-
-    cursor=conn.cursor()
+def getCursor() -> Generator[psycopg.Cursor, None, None]:
+    conn = psycopg.connect(url, sslmode="require")
+    cursor = conn.cursor()
     try:
         yield cursor
         conn.commit()
